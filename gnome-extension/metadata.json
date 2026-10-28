@@ -1,0 +1,7 @@
+{
+  "uuid": "voice-dictate@link.local",
+  "name": "Voice Dictate",
+  "description": "Tells the voice-dictate daemon which app is focused, so line breaks use the right keys.",
+  "shell-version": ["50"],
+  "version": 1
+}

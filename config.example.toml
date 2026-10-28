@@ -1,0 +1,37 @@
+# Copy to ~/.config/voice-dictate/config.toml, then: systemctl --user restart voice-dictate
+
+# Words Whisper and the cleanup model should spell exactly this way.
+vocabulary = ["Prisma", "oRPC", "Claude Code", "Claude", "bun", "MySQL", "Next.js", "Tailwind", "TypeScript", "GitHub", "Slack", "PR", "ADR"]
+
+# PipeWire node.name of the mic; empty = system default. List: wpctl status, then wpctl inspect <id> | grep node.name
+input_device = ""
+
+max_record_seconds = 600
+sounds = true
+
+[whisper]
+model = "large-v3"
+compute_type = "int8_float16"   # "float16" uses ~1.5 GB more VRAM for a marginal accuracy gain
+language = "en"
+beam_size = 5
+
+[cleanup]
+enabled = true
+backend = "claude-code"         # "claude-code": `claude -p` on your Claude login (~3s); "ollama": local qwen3:8b (~0.3s)
+claude_model = "haiku"
+claude_effort = "low"
+ollama_model = "qwen3:8b"
+keep_alive = "30m"              # how long Ollama keeps its model in VRAM after the last dictation
+min_similarity = 0.55           # below this, the cleanup is treated as a rewrite and the raw text is typed
+
+[output]
+newline = "shift+enter"         # "enter" would submit chat inputs at every line break
+key_delay_ms = 4
+trailing_space = true
+
+[server]
+# HTTP endpoint for other machines (the macOS client in mac/): POST a 16 kHz mono WAV, get the cleaned text back.
+enabled = false
+host = "0.0.0.0"
+port = 8765
+token = ""                      # required when enabled; generate one with: openssl rand -hex 32

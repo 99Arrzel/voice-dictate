@@ -1,0 +1,3 @@
+#!/bin/sh
+# Bind this to a GNOME shortcut: dictate toggle | cancel | status
+exec printf '%s\n' "${1:-toggle}" | socat -t 30 - "UNIX-CONNECT:${XDG_RUNTIME_DIR:-/tmp}/voice-dictate.sock"

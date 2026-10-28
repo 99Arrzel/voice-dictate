@@ -1,0 +1,12 @@
+[Unit]
+Description=Voice dictation daemon (Whisper + local cleanup)
+After=ollama.service pipewire.service
+Wants=ollama.service
+
+[Service]
+ExecStart=%h/tools/voice-dictate/.venv/bin/voice-dictate
+Environment=HF_HUB_OFFLINE=1
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

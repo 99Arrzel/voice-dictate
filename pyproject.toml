@@ -1,0 +1,24 @@
+[project]
+name = "voice-dictate"
+version = "0.1.0"
+description = "Push-to-talk dictation: Whisper on the GPU, LLM cleanup, typed into the focused window; also serves other machines over HTTP"
+readme = "README.md"
+authors = [
+    { name = "Andres Carrillo", email = "af.carrillo@live.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "evdev>=2.0.0",
+    "faster-whisper>=1.2.1",
+    "httpx>=0.28.1",
+    "jeepney>=0.9.0",
+    "nvidia-cublas-cu12>=12.9.2.10",
+    "nvidia-cudnn-cu12==9.*",
+]
+
+[project.scripts]
+voice-dictate = "voice_dictate:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
